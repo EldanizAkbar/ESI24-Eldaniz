@@ -1,0 +1,32 @@
+### Get all requests
+GET http://localhost:8082/api/ssmrequests
+
+
+### Add an SSM request  
+POST  http://localhost:8082/api/ssmrequests HTTP/1.1
+content-type: application/json
+
+{
+    "userId": "C001",
+    "eventName": "UT2024",   
+    "location": "Tartu",   
+    "cost": 600 
+}
+
+
+### Finalize an SSM request  
+PUT  http://localhost:8083/api/ssmresponse HTTP/1.1
+content-type: application/json
+
+{
+    "userId": "C001",
+    "eventName": "UT2024",   
+    "location": "Tartu",   
+    "cost": 600,
+    "advisoryDescription": "No sufficient fund",
+    "ssmRequestStatus": "Rejected"
+}
+
+
+
+
