@@ -43,8 +43,22 @@ public class SSMRequestService {
                 .build();
     }
 
-    public void addSSMRequest(SSMRequestDto ssmRequestDto) {
+    private SSMRequest mapToSsmRequest(SSMRequestDto ssmRequestDto) {
+        SSMRequest ssmRequest = new SSMRequest();
+        ssmRequest.setUserId(ssmRequestDto.getUserId());
+        ssmRequest.setEventName(ssmRequestDto.getEventName());
+        ssmRequest.setLocation(ssmRequestDto.getLocation());
+        ssmRequest.setCost(ssmRequestDto.getCost());
+        ssmRequest.setAdvisoryDescription(ssmRequestDto.getAdvisoryDescription());
+        ssmRequest.setSsmRequestStatus(ssmRequestDto.getSsmRequestStatus());
+        return ssmRequest;
 
+    }
+
+    public void addSSMRequest(SSMRequestDto ssmRequestDto) {
+        SSMRequest ssmRequest = mapToSsmRequest(ssmRequestDto);
+        SSMRequestRepository.save(ssmRequest);
+        kafkaTemplate.send("SSMRequestCreatedTopic", ssmRequestDto);
     }
 
 }
