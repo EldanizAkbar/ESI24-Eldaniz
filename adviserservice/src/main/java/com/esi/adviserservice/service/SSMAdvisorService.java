@@ -22,6 +22,18 @@ public class SSMAdvisorService {
 
   private final KafkaTemplate<String, SSMRequestDto> kafkaTemplate;
 
+  public void consumeSSMRequest(SSMRequestDto ssmRequestDto) {
+    log.info("An SSM Request with user id: {} has been received", ssmRequestDto.getUserId());
+
+    SSMAdvisor ssmAdvisor = SSMAdvisor.builder()
+        .userId(ssmRequestDto.getUserId())
+        .eventName(ssmRequestDto.getEventName())
+        .location(ssmRequestDto.getLocation())
+        .cost(ssmRequestDto.getCost())
+        .ssmRequestStatus(ssmRequestDto.getSsmRequestStatus())
+        .build();
+  }
+
   public void updateSSMResponse(SSMRequestDto ssmRequestDto) {
 
     SSMAdvisor ssmAdvisor = SSMAdvisor.builder()

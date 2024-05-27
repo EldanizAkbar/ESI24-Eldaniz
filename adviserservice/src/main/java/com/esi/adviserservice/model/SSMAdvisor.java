@@ -19,10 +19,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "ssm_requests")
-public class SSMRequest {
+@Table(name = "adviserservicetable")
+public class SSMAdvisor {
     @Id
-    @generatedValue(strategy = GenerationType.IDENTITY)
     private String userId;
     private String eventName;
     private String location;
