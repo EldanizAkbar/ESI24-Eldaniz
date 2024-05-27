@@ -50,12 +50,13 @@ public class SSMRequestService {
         ssmRequest.setLocation(ssmRequestDto.getLocation());
         ssmRequest.setCost(ssmRequestDto.getCost());
         ssmRequest.setAdvisoryDescription(ssmRequestDto.getAdvisoryDescription());
-        ssmRequest.setSsmRequestStatus(ssmRequestDto.getSsmRequestStatus());
+        ssmRequest.setSsmRequestStatus(SSMRequestStatus.SUBMITTED);
         return ssmRequest;
 
     }
 
     public void addSSMRequest(SSMRequestDto ssmRequestDto) {
+        ssmRequestDto.setSsmRequestStatus(SSMRequestStatus.SUBMITTED);
         SSMRequest ssmRequest = mapToSsmRequest(ssmRequestDto);
         SSMRequestRepository.save(ssmRequest);
         kafkaTemplate.send("SSMRequestCreatedTopic", ssmRequestDto);
