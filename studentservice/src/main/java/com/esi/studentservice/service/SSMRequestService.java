@@ -56,9 +56,11 @@ public class SSMRequestService {
     }
 
     public void addSSMRequest(SSMRequestDto ssmRequestDto) {
+        log.info("Received SSM request:", ssmRequestDto);
         ssmRequestDto.setSsmRequestStatus(SSMRequestStatus.SUBMITTED);
         SSMRequest ssmRequest = mapToSsmRequest(ssmRequestDto);
-        SSMRequestRepository.save(ssmRequest);
+        ssmRequest = SSMRequestRepository.save(ssmRequest);
+        log.info("SSM Request saved with id:", ssmRequest.getUserId());
         kafkaTemplate.send("SSMRequestCreatedTopic", ssmRequestDto);
     }
 
