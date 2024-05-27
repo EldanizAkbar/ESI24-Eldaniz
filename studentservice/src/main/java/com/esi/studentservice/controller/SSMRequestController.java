@@ -29,4 +29,11 @@ public class SSMRequestController {
         return ResponseEntity.ok("An SSM Request has been created");
 
     }
+
+    @GetMapping("/ssmrequests")
+    public ResponseEntity<List<SSMRequestDto>> getAllSSMRequest() {
+        return ResponseEntity.ok(ssmRequestService.getAllSSMRequest());
+
+    }
+
 }
