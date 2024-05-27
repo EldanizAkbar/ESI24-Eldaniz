@@ -18,6 +18,8 @@ public class SSMRequestDto {
     private String eventName;
     private String location;
     private BigDecimal cost;
+    private String advisoryDescription;
+    private String decisionJustification;
     @Enumerated(EnumType.STRING)
     private SSMRequestStatus ssmRequestStatus;
 }

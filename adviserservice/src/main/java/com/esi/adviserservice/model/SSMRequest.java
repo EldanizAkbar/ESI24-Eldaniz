@@ -19,13 +19,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "adviserservicetable")
-public class SSMAdvisor {
+@Table(name = "ssm_requests")
+public class SSMRequest {
     @Id
+    @generatedValue(strategy = GenerationType.IDENTITY)
     private String userId;
     private String eventName;
     private String location;
     private BigDecimal cost;
+    private String advisoryDescription;
+    private String decisionJustification;
     @Enumerated(EnumType.STRING)
     private SSMRequestStatus ssmRequestStatus;
 }
