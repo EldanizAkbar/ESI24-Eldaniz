@@ -50,14 +50,14 @@ public class SSMRequestService {
         ssmRequest.setLocation(ssmRequestDto.getLocation());
         ssmRequest.setCost(ssmRequestDto.getCost());
         ssmRequest.setAdvisoryDescription(ssmRequestDto.getAdvisoryDescription());
-        ssmRequest.setSsmRequestStatus(SSMRequestStatus.SUBMITTED);
+        ssmRequest.setSsmRequestStatus(SSMRequestStatus.Submitted);
         return ssmRequest;
 
     }
 
     public void addSSMRequest(SSMRequestDto ssmRequestDto) {
         log.info("Received SSM request:", ssmRequestDto);
-        ssmRequestDto.setSsmRequestStatus(SSMRequestStatus.SUBMITTED);
+        ssmRequestDto.setSsmRequestStatus(SSMRequestStatus.Submitted);
         SSMRequest ssmRequest = mapToSsmRequest(ssmRequestDto);
         ssmRequest = SSMRequestRepository.save(ssmRequest);
         log.info("SSM Request saved with id:", ssmRequest.getUserId());

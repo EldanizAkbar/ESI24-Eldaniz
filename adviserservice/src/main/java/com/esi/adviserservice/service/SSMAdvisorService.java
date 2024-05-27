@@ -38,21 +38,14 @@ public class SSMAdvisorService {
   }
 
   public void updateSSMResponse(SSMRequestDto ssmRequestDto) {
-
-    SSMAdvisor ssmAdvisor = SSMAdvisor.builder()
-        .userId(ssmRequestDto.getUserId())
-        .userId(ssmRequestDto.getUserId())
-        .eventName(ssmRequestDto.getEventName())
-        .location(ssmRequestDto.getLocation())
-        .cost(ssmRequestDto.getCost())
-        .ssmRequestStatus(ssmRequestDto.getSsmRequestStatus())
-        .build();
-
-    log.info("An SSM Reuest with user id: {} has been updated", ssmAdvisor.getUserId());
-    log.info("An SSM Reuest with user id: {} has been updated", ssmAdvisor.toString());
-
+    log.info("An SSM Request with user id: {} has been updated", ssmRequestDto.getUserId());
+    SSMAdvisor ssmAdvisor = ssmAdvisorRepository.findById(ssmRequestDto.getUserId()).get();
+    ssmAdvisor.setSsmRequestStatus(ssmRequestDto.getSsmRequestStatus());
     ssmAdvisorRepository.save(ssmAdvisor);
+    log.info("An SSM Request with user id: {} has been updated", ssmRequestDto.getUserId());
 
+    kafkaTemplate.send("SSMRequestUpdatedTopic", ssmRequestDto);
+    log.info("Sent updated SSM Request to Kafka topic: SSMRequestUpdatedTopic");
   }
 
 }
