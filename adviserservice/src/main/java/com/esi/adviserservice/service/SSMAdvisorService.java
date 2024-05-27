@@ -24,7 +24,7 @@ public class SSMAdvisorService {
 
   public void consumeSSMRequest(SSMRequestDto ssmRequestDto) {
     log.info("An SSM Request with user id: {} has been received", ssmRequestDto.getUserId());
-
+    log.info("An SSM Request with user id: {} has been received", ssmRequestDto.toString());
     SSMAdvisor ssmAdvisor = SSMAdvisor.builder()
         .userId(ssmRequestDto.getUserId())
         .eventName(ssmRequestDto.getEventName())
@@ -32,6 +32,9 @@ public class SSMAdvisorService {
         .cost(ssmRequestDto.getCost())
         .ssmRequestStatus(ssmRequestDto.getSsmRequestStatus())
         .build();
+
+    ssmAdvisorRepository.save(ssmAdvisor);
+
   }
 
   public void updateSSMResponse(SSMRequestDto ssmRequestDto) {
